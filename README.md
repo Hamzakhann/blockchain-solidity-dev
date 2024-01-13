@@ -231,3 +231,34 @@ require("hardhat-deploy")
 If you are using hardhat-deploy you are not going to use scripts folder to write your deploy script instead you will create new folder named deploy and in this you will create files with convention like 01-deploy-fund-me.js.
 
 [Eth Opcodes](https://github.com/crytic/evm-opcodes) use this website to see different data structures gas 
+
+
+
+### Interfaces
+When you declare a variable with a type of an interface, you are essentially saying that the variable can hold any contract address that implements that interface. In other words, the variable can interact with any contract that provides the functions defined in the interface.
+
+### Events
+In Solidity, events are a way to log and notify external entities (such as user interfaces or other smart contracts) about specific occurrences within a smart contract. They serve as a mechanism for emitting and recording data onto the blockchain, making it transparent and easily accessible. Emits, on the other hand, are used to trigger or emit events within the smart contract code.
+
+```
+event storedNum(
+  uint256 indexed oldNumber,
+  address sender
+)
+emit storedNum(
+  7,
+  msg.sender
+)
+```
+when we emit these events there are two kinds of parameters.
+1. Index Parameters
+2. Non Index Parameters
+
+***INDEX PARAMETERS***
+We can have up to 3 index parameters and they are also known as **topics** .
+Index parameter makes it easier and quicker for applications to filter and fetch specific logs from the massive pile of data on the blockchain.
+
+***NON INDEX PARAMETERS***
+Non index one are harder to search because they get ABI encoded and you have to know the ABI in order to decode them.
+
+
