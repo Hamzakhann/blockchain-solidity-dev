@@ -1,4 +1,5 @@
-require("@nomiclabs/hardhat-waffle")
+require("@nomicfoundation/hardhat-chai-matchers")
+// require("@nomiclabs/hardhat-waffle")
 require("@nomiclabs/hardhat-etherscan")
 require("hardhat-deploy")
 require("solidity-coverage")
@@ -54,30 +55,30 @@ module.exports = {
         //     chainId: 137,
         // },
     },
-    // etherscan: {
-    //     // yarn hardhat verify --network <NETWORK> <CONTRACT_ADDRESS> <CONSTRUCTOR_PARAMETERS>
-    //     apiKey: {
-    //         sepolia: ETHERSCAN_API_KEY,
-    //         polygon: POLYGONSCAN_API_KEY,
-    //     },
-    //     customChains: [
-    //         {
-    //             network: "goerli",
-    //             chainId: 5,
-    //             urls: {
-    //                 apiURL: "https://api-goerli.etherscan.io/api",
-    //                 browserURL: "https://goerli.etherscan.io",
-    //             },
-    //         },
-    //     ],
-    // },
-    // gasReporter: {
-    //     enabled: REPORT_GAS,
-    //     currency: "USD",
-    //     outputFile: "gas-report.txt",
-    //     noColors: true,
-    //     // coinmarketcap: process.env.COINMARKETCAP_API_KEY,
-    // },
+    etherscan: {
+        // yarn hardhat verify --network <NETWORK> <CONTRACT_ADDRESS> <CONSTRUCTOR_PARAMETERS>
+        apiKey: {
+            sepolia: ETHERSCAN_API_KEY,
+            // polygon: POLYGONSCAN_API_KEY,
+        },
+        // customChains: [
+        //     {
+        //         network: "goerli",
+        //         chainId: 5,
+        //         urls: {
+        //             apiURL: "https://api-goerli.etherscan.io/api",
+        //             browserURL: "https://goerli.etherscan.io",
+        //         },
+        //     },
+        // ],
+    },
+    gasReporter: {
+        enabled: false,
+        currency: "USD",
+        outputFile: "gas-report.txt",
+        noColors: true,
+        // coinmarketcap: process.env.COINMARKETCAP_API_KEY,
+    },
     // contractSizer: {
     //     runOnCompile: false,
     //     only: ["Raffle"],
@@ -101,7 +102,7 @@ module.exports = {
             },
         ],
     },
-    // mocha: {
-    //     timeout: 500000, // 500 seconds max for running tests
-    // },
+    mocha: {
+        timeout: 500000, // 500 seconds max for running tests
+    },
 }
