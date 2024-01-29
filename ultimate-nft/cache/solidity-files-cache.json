@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/test/Desktop/Blockchain/blockchain-hardhat/ultimate-nft/contracts/BasicNft.sol": {
-      "lastModificationDate": 1706538773043,
-      "contentHash": "79d2b2a791af6fd331beda0fdc3d33c7",
+      "lastModificationDate": 1706539929974,
+      "contentHash": "d07044cdf95a53ee3b5b979bb4817d43",
       "sourceName": "contracts/BasicNft.sol",
       "solcConfig": {
         "version": "0.8.8",
