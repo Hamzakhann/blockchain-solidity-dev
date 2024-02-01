@@ -1,7 +1,7 @@
 const { network } = require("hardhat")
 const { networkConfig, developmentChains } = require("../helper-hardhat-config")
 const { verify } = require("../utils/verify")
-const { storeImages, storeTokenUriMetadata } = require("../utils/uploadToPinata.js")
+const { storeImages, storeTokenUriMetadata } = require("../utils/uploadToPinata")
 
 const FUND_AMOUNT = "1000000000000000000000"
 const imagesLocation = "./images/randomNft/"
