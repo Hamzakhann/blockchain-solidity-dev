@@ -67,6 +67,7 @@ contract Raffle {
         if(block.timestamp - s_lastTimestamp < i_interval){
             revert();
         }
+        
     }
 
     /* Getter Functions */
