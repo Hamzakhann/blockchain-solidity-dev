@@ -37,7 +37,11 @@ contract Raffle is VRFConsumerBaseV2 {
     error Raffle_NotEnoughEthSent();
     error Raffle__TransferFailed();
     error Raffle_RaffleNotOpen();
-    error Raffle_UpkeepNotNeeded(uint256 currentBalance, uint256 numPlayers, uint256 raffleState);
+    error Raffle_UpkeepNotNeeded(
+        uint256 currentBalance,
+        uint256 numPlayers,
+        uint256 raffleState
+    );
 
     enum RaffleState {
         OPEN,
@@ -62,6 +66,8 @@ contract Raffle is VRFConsumerBaseV2 {
     address payable[] private s_players;
 
     // Events
+    event RequestedRaffleWinner(uint256 indexed requestId);
+
     event EnteredRaffle(address indexed player);
     event WinnerPicked(address indexed winner);
 
@@ -83,7 +89,7 @@ contract Raffle is VRFConsumerBaseV2 {
         s_raffleState = RaffleState.OPEN;
     }
 
-     /**
+    /**
      * @dev This is the function that the Chainlink Keeper nodes call
      * they look for `upkeepNeeded` to return True.
      * the following should be true for this to return true:
@@ -119,20 +125,25 @@ contract Raffle is VRFConsumerBaseV2 {
     // 2. Use the random number to pick a winner
     // 3. Be automatically called
     function performUpkeep(bytes calldata /*performData*/) external {
-
-        (bool upkeepNeeded,) = checkUpkeep("");
-        if(!upkeepNeeded){
-            revert Raffle_UpkeepNotNeeded(address(this).balance, s_players.length, uint256(s_raffleState));
+        (bool upkeepNeeded, ) = checkUpkeep("");
+        if (!upkeepNeeded) {
+            revert Raffle_UpkeepNotNeeded(
+                address(this).balance,
+                s_players.length,
+                uint256(s_raffleState)
+            );
         }
 
         s_raffleState = RaffleState.CALCULATING;
-        i_vrfCoordinator.requestRandomWords(
+        uint256 requestId = i_vrfCoordinator.requestRandomWords(
             i_gasLane,
             i_subscriptionId,
             REQUEST_CONFIRMATIONS,
             i_callbackGasLimit,
             NUM_WORDS
         );
+
+        emit RequestedRaffleWinner(requestId);
     }
 
     // CEI --- Check Effect Interaction (Design Pattern)
@@ -156,11 +167,10 @@ contract Raffle is VRFConsumerBaseV2 {
     }
 
     /* Getter Functions */
-    
+
     function getRaffleState() public view returns (RaffleState) {
         return s_raffleState;
     }
-
 
     function getEntranceFee() public view returns (uint256) {
         return i_entranceFee;
